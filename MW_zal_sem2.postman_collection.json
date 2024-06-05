@@ -1,0 +1,252 @@
+{
+	"info": {
+		"_postman_id": "84547c00-302f-465a-8eac-5ec589cebc15",
+		"name": "MW_zal_sem2",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "heartbeat",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}:{{port}}/heartbeat",
+					"host": [
+						"{{baseURL}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"heartbeat"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "dodanie ogloszenia",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"title\": \"Hulajnoga\",\r\n\"description\": \"MTB MONGOOSE TYAX 2\",\r\n\"author\": \"Majka\",\r\n\"category\": \"sport\",\r\n\"tags\":\"zdrowie\",\r\n\"price\": 100,\r\n\"location\": \"Warszawa\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}:{{port}}/ads",
+					"host": [
+						"{{baseURL}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"ads"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "zwracanie pojedynczego ogłoszenia",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true,
+					"accept-encoding": true
+				}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "default"
+					},
+					{
+						"key": "Accept",
+						"value": "text/html",
+						"type": "default",
+						"disabled": true
+					},
+					{
+						"key": "Accept",
+						"value": "text/plain",
+						"type": "default"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}:{{port}}/tasks/:id",
+					"host": [
+						"{{baseURL}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"tasks",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "665a22b5bd50eb43febb6c5b"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "zwracanie wszystkich ogłoszeń",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}:{{port}}/tasks",
+					"host": [
+						"{{baseURL}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"tasks"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "usuwanie wybranego ogłoszenia",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}:{{port}}/tasks/:id",
+					"host": [
+						"{{baseURL}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"tasks",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "665a2a3162ed671843d8439e"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "usuwanie nieistniejącego ogłoszenia",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}:{{port}}/posts/100005",
+					"host": [
+						"{{baseURL}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"posts",
+						"100005"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "czesciowa modyfikacja wybranego ogłoszenia",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\": \"nowy tsssytuł\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}:{{port}}/tasks/:id",
+					"host": [
+						"{{baseURL}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"tasks",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "665b6bf54dc17824a52f5fc5"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "filtrowanie",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}:{{port}}/search?maxPrice=100",
+					"host": [
+						"{{baseURL}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"search"
+					],
+					"query": [
+						{
+							"key": "title",
+							"value": "Rower",
+							"disabled": true
+						},
+						{
+							"key": "description",
+							"value": null,
+							"disabled": true
+						},
+						{
+							"key": "minPrice",
+							"value": null,
+							"disabled": true
+						},
+						{
+							"key": "maxPrice",
+							"value": "100"
+						},
+						{
+							"key": "author",
+							"value": null,
+							"disabled": true
+						},
+						{
+							"key": "category",
+							"value": null,
+							"disabled": true
+						},
+						{
+							"key": "location",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
