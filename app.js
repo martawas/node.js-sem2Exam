@@ -101,7 +101,7 @@ init()
         const result = await updateAd(id, updatedFields);
 
         if (result.modifiedCount === 1) {
-          return res.status(204).send("Advertisement midified correctly");
+          return res.status(204).send("Advertisement modified correctly");
         } else if (result.matchedCount === 1) {
           return res
             .status(409)
@@ -134,6 +134,16 @@ init()
     app.get("/search", async (req, res) => {
       try {
         const { query } = req;
+        if (query.minPrice && query.maxPrice) {
+          const minPrice = parseFloat(query.minPrice);
+          const maxPrice = parseFloat(query.maxPrice);
+
+          if (minPrice > maxPrice) {
+            return res
+              .status(400)
+              .send("minPrice cannot be greater than maxPrice");
+          }
+        }
         const filteredAds = await searchAds(query);
         res.json(filteredAds);
       } catch (error) {
