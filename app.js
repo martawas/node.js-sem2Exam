@@ -48,7 +48,7 @@ init()
     });
 
     app.get("/ads/:id", async (req, res) => {
-      const { id } = req.params;
+      const id = req.params;
       try {
         const ad = await getAd(id);
         if (!ad) {
@@ -90,11 +90,11 @@ init()
     });
 
     app.patch("/ads/:id", async (req, res) => {
-      const { id } = req.params;
+      const id = req.params;
       const updatedFields = req.body;
 
       if (!updatedFields || Object.keys(updatedFields).length === 0) {
-        return res.status(400).send("Bad Request: No fields to update");
+        return res.status(400).send("No fields to update");
       }
 
       try {
@@ -105,11 +105,9 @@ init()
         } else if (result.matchedCount === 1) {
           return res
             .status(409)
-            .send("Conflict: No changes were made to the advertisement");
+            .send("No changes were made to the advertisement");
         } else {
-          return res
-            .status(404)
-            .send("Not Found: Advertisement does not exist");
+          return res.status(404).send("Advertisement doesn't exist");
         }
       } catch (error) {
         return res.status(500).send("Internal Server Error");
@@ -117,14 +115,14 @@ init()
     });
 
     app.delete("/ads/:id", async (req, res) => {
-      const { id } = req.params;
+      const id = req.params;
       try {
         const result = await deleteAd(id);
 
         if (result.deletedCount == 1) {
-          res.status(204).send();
+          res.status(200).send("Advertisement deleted correctly");
         } else {
-          res.status(404).send("Not Found: Advertisement does not exist");
+          res.status(404).send("Advertisement doesn't exist");
         }
       } catch (error) {
         return res.status(500).send("Internal Server Error");
