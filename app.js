@@ -134,17 +134,28 @@ init()
     app.get("/search", async (req, res) => {
       try {
         const { query } = req;
-        if (query.minPrice && query.maxPrice) {
-          const minPrice = parseFloat(query.minPrice);
-          const maxPrice = parseFloat(query.maxPrice);
+        const minPrice = parseFloat(query.minPrice);
+        const maxPrice = parseFloat(query.maxPrice);
 
+        if ((minPrice && isNaN(minPrice)) || (maxPrice && isNaN(maxPrice))) {
+          return res.status(400).send("minPrice and maxPrice must be a number");
+        }
+
+        if (minPrice && maxPrice) {
           if (minPrice > maxPrice) {
             return res
               .status(400)
               .send("minPrice cannot be greater than maxPrice");
           }
         }
+
         const filteredAds = await searchAds(query);
+
+        if (filteredAds.length === 0) {
+          return res
+            .status(404)
+            .send("No advertisements found matching the search criteria");
+        }
         res.json(filteredAds);
       } catch (error) {
         res.status(500).send("Internal Server Error");
